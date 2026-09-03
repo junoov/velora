@@ -1,0 +1,277 @@
+---
+const footerLinks = [
+  { label: "Works", href: "#works" },
+  { label: "Services", href: "#services" },
+  { label: "About", href: "#about" },
+  { label: "Review", href: "#review" }
+];
+---
+
+<footer class="footer-section" id="contact">
+  <div class="footer-container">
+    <div class="footer-contact">
+      <div class="footer-heading-wrap">
+        <h2>Stay connected</h2>
+      </div>
+      <div class="footer-cta-wrap">
+        <a href="mailto:hello.lunis.design@gmail.com" class="footer-cta link-underline-xl" data-slide-x>
+          <span>Get in touch</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-content">
+      <div class="footer-main">
+        <div class="footer-left">
+          <a href="/" class="footer-logo">Velora</a>
+          <div class="footer-info">
+            <a href="tel:1234567890">123-456-7890</a>
+            <p>123 Sakura Street, New York City, NY, USA</p>
+          </div>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          {footerLinks.map((link) => (
+            <a href={link.href}>{link.label}</a>
+          ))}
+        </nav>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <p class="footer-credit">
+        <a href="https://lunisdesign.com" target="_blank" rel="noopener noreferrer">Created by Lunis Design</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: var(--dark);
+    color: #fff;
+    box-shadow: inset 0 1px 0 var(--dark-line);
+  }
+
+  .footer-container {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 80px;
+    padding: 40px 80px;
+  }
+
+  .footer-contact,
+  .footer-content {
+    width: 100%;
+  }
+
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-heading-wrap {
+    width: 100%;
+    aspect-ratio: 5.588;
+    overflow: hidden;
+  }
+
+  .footer-heading-wrap h2 {
+    width: 100%;
+    color: var(--gold);
+    font-size: min(161.2px, calc((min(100vw, 1400px) - 160px) * 0.13));
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.06em;
+    white-space: nowrap;
+    /* Live renders this heading inside an SVG with a viewBox (1078.7 x 193) stretched to
+       the 1240 x 222 container, which scales the text up ~1.15x. Replicate that scale. */
+    transform: scale(1.15);
+    transform-origin: 0 0;
+  }
+
+  .footer-cta-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .footer-cta span {
+    display: block;
+    width: 5.18em;
+    white-space: nowrap;
+  }
+
+  .footer-main {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .footer-left {
+    align-self: stretch;
+    min-width: 0;
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: -0.04em;
+  }
+
+  .footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    color: #aeaeae;
+    font-size: var(--fs-body);
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.04em;
+  }
+
+  .footer-info p {
+    color: #aeaeae;
+  }
+
+  .footer-info a {
+    color: #aeaeae;
+  }
+
+  .footer-info a,
+  .footer-nav a,
+  .footer-credit a {
+    transition: color 0.4s var(--ease-link);
+  }
+
+  .footer-info a:hover,
+  .footer-nav a:hover,
+  .footer-credit a:hover {
+    color: #aeaeae;
+  }
+
+  .footer-nav {
+    width: 154px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    /* Live: first nav link sits 4px below the logo text line */
+    padding-top: 4px;
+    overflow: hidden;
+  }
+
+  .footer-nav a {
+    width: 100%;
+    padding: 4px 0;
+    color: #fff;
+    font-size: var(--fs-body);
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.04em;
+  }
+
+  .footer-divider {
+    width: 100%;
+    height: 1px;
+    margin: 24px 0;
+    background: var(--dark-line);
+  }
+
+  .footer-credit {
+    width: 100%;
+    color: #aeaeae;
+    font-size: var(--fs-body);
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.04em;
+    user-select: none;
+  }
+
+  .footer-credit a {
+    color: #aeaeae;
+  }
+
+  @media (max-width: 1199.98px) {
+    .footer-container {
+      max-width: 810px;
+      padding: 40px;
+    }
+
+    .footer-heading-wrap h2 {
+      font-size: 109px;
+    }
+
+    .footer-main {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    .footer-left {
+      align-self: unset;
+      flex: none;
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 810px) and (max-width: 1199.98px) {
+    .footer-main {
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-left {
+      align-self: stretch;
+      min-width: 0;
+      flex: 1 0 0;
+      width: 1px;
+    }
+  }
+
+  @media (max-width: 809.98px) {
+    .footer-container {
+      max-width: 390px;
+      gap: 80px;
+      padding: 40px 24px;
+    }
+
+    .footer-heading-wrap h2 {
+      font-size: 51px;
+    }
+
+    .footer-nav a {
+      padding: 9.6px 0;
+    }
+  }
+</style>

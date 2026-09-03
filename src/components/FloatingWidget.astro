@@ -1,0 +1,133 @@
+---
+---
+
+<div class="floating-widget" id="floatingWidget" data-hero="down" data-delay="3">
+  <a
+    href="https://www.framer.com/community/marketplace/templates/folira/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="widget-preview"
+  >
+    <span class="widget-label">New Template</span>
+    <div class="widget-video-wrap">
+      <video
+        src="/assets/footer-video.mp4"
+        poster="/assets/footer-poster.png"
+        width="2025"
+        height="1425"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="none"
+        class="widget-video"
+      ></video>
+    </div>
+  </a>
+
+  <a
+    href="https://framer.link/AMSeDZ8?duplicateType=siteTemplate"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="widget-cta"
+  >
+    <img src="/assets/logo-mark.png" alt="" width="14" height="14" />
+    <span>Use Template</span>
+  </a>
+</div>
+
+<style>
+  .floating-widget {
+    position: fixed;
+    right: 24px;
+    bottom: 64px;
+    z-index: 10;
+    width: 165px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+    overflow: hidden;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .widget-preview {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #1a1a1a;
+    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+  }
+
+  .widget-label {
+    align-self: center;
+    width: max-content;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.04em;
+  }
+
+  .widget-video-wrap {
+    width: 100%;
+    aspect-ratio: 2025 / 1425;
+    overflow: hidden;
+  }
+
+  .widget-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+
+  .widget-cta {
+    width: 100%;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 14px;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 150%;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    transition: background-color 0.25s ease, transform 0.25s var(--ease-out);
+  }
+
+  .widget-cta:hover,
+  .widget-cta:focus-visible {
+    background: #1d1d1d;
+    transform: translateY(-1px);
+  }
+
+  .widget-cta img {
+    width: 14px;
+    height: 14px;
+    flex: none;
+    object-fit: cover;
+  }
+
+  @media (max-width: 809.98px) {
+    .floating-widget {
+      display: none;
+    }
+  }
+</style>

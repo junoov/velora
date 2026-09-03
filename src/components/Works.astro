@@ -1,0 +1,226 @@
+---
+const projects = [
+  {
+    title: "Korda",
+    category: "Creative Agency Site",
+    description: "Minimal, monochromatic Framer template built for interior design studios and creative agencies.",
+    image: "/assets/work-korda.png",
+    link: "/korda"
+  },
+  {
+    title: "Folira",
+    category: "Creative Portfolio Site",
+    description: "Interactive Framer portfolio and resume template for creative professionals.",
+    image: "/assets/work-folira.png",
+    link: "/folira"
+  },
+  {
+    title: "Modio",
+    category: "Minimal Portfolio Site",
+    description: "Minimal Framer portfolio template with sidebar layout for creative professionals. ",
+    image: "/assets/work-modio.png",
+    link: "/modio"
+  },
+  {
+    title: "Revana",
+    category: "Creative Agency Site",
+    description: "Bold Framer template for interior designers and creative studios",
+    image: "/assets/work-revana.png",
+    link: "/revana"
+  }
+];
+const summary = "Discover curated works that inspire and deliver impact, showcasing creativity, functionality, and design excellence.";
+---
+
+<section class="works-section" id="works">
+  <div class="container-wide">
+    <div class="section-header">
+      <div class="section-heading">
+        <div class="section-dash"></div>
+        <h2 class="section-label-text">Selected Works</h2>
+      </div>
+      <p class="section-summary" data-words>
+        {summary.split(/\s+/).map((word, index, words) => (
+          <>
+            <span class="word">{word}</span>
+            {index < words.length - 1 ? ' ' : ''}
+          </>
+        ))}
+      </p>
+    </div>
+
+    <div class="works-grid">
+      {projects.map((project) => (
+        <a href={project.link} class="work-card" data-reveal>
+          <div class="work-image-wrap">
+            <div class="work-overlay">
+              <h6>{project.description}</h6>
+            </div>
+            <img
+              src={project.image}
+              alt={project.title}
+              class="work-image"
+              width="1024"
+              height="768"
+              loading="lazy"
+            />
+          </div>
+          <div class="work-meta">
+            <h5>{project.title}</h5>
+            <p>{project.category}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .works-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: var(--bg);
+  }
+
+  .works-section .container-wide {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 80px;
+    padding: 80px;
+  }
+
+  .works-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(50px, 1fr));
+    gap: 24px;
+  }
+
+  .work-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 12px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--bg-card);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .work-image-wrap {
+    position: relative;
+    width: 100%;
+    min-height: 250px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--bg-subtle);
+  }
+
+  .work-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s var(--ease-out);
+  }
+
+  .work-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    opacity: 0;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: opacity 0.4s ease;
+  }
+
+  .work-overlay h6 {
+    max-width: 500px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: -0.05em;
+  }
+
+  .work-card:hover .work-overlay,
+  .work-card:focus-visible .work-overlay {
+    opacity: 1;
+  }
+
+  .work-card:hover .work-image,
+  .work-card:focus-visible .work-image {
+    transform: scale(1.04);
+  }
+
+  .work-meta {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 4px;
+  }
+
+  .work-meta h5 {
+    color: var(--text);
+    font-size: var(--fs-h5);
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: -0.05em;
+  }
+
+  .work-meta p {
+    color: var(--text-muted);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.04em;
+  }
+
+  @media (max-width: 1199.98px) {
+    .works-section .container-wide {
+      gap: 48px;
+      padding: 80px 40px;
+    }
+
+    .works-grid {
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 809.98px) {
+    .works-section .container-wide {
+      gap: 40px;
+      padding: 64px 24px;
+    }
+
+    .works-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .work-card {
+      flex: none;
+    }
+
+    .work-overlay {
+      padding: 24px;
+    }
+  }
+</style>

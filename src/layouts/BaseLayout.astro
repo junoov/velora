@@ -1,0 +1,173 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Velora - Framer Website Template',
+  description = 'Showcase your work, highlight your services, and tell your story with Velora. Designed for creatives, this modern portfolio template helps you make a lasting impression with a clean, professional layout.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/assets/favicon.png" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script is:inline>
+      document.documentElement.classList.add('motion-pending');
+      window.setTimeout(() => document.documentElement.classList.remove('motion-pending'), 3000);
+    </script>
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      import gsap from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const root = document.documentElement;
+      root.classList.add('js');
+
+      const springEase = (progress: number) => {
+        const slow = Math.exp(-8 * progress);
+        const fast = Math.exp(-50 * progress);
+        return 1 - (25 / 21) * slow + (4 / 21) * fast;
+      };
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const scrollToTarget = (target: HTMLElement) => {
+        const top = target.getBoundingClientRect().top + window.scrollY - 64;
+        window.scrollTo({
+          top,
+          behavior: prefersReducedMotion ? 'auto' : 'smooth',
+        });
+      };
+
+      document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', (event) => {
+          const href = anchor.getAttribute('href');
+          if (!href || href === '#') return;
+
+          const target = document.querySelector<HTMLElement>(href);
+          if (!target) return;
+
+          event.preventDefault();
+          scrollToTarget(target);
+        });
+      });
+
+      await document.fonts?.ready.catch(() => undefined);
+
+      if (prefersReducedMotion) {
+        gsap.set('[data-hero], [data-reveal], [data-slide-x]', {
+          clearProps: 'all',
+          opacity: 1,
+        });
+      } else {
+        gsap.utils.toArray<HTMLElement>('[data-hero]').forEach((element) => {
+          const direction = element.dataset.hero === 'up' ? -20 : 20;
+          const delay = Number(element.dataset.delay ?? 0);
+
+          gsap.fromTo(
+            element,
+            { opacity: 0.001, y: direction },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              delay,
+              ease: springEase,
+              clearProps: 'transform',
+            }
+          );
+        });
+
+        gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((element) => {
+          const distance = element.dataset.reveal === 'sm' ? 8 : 30;
+
+          gsap.fromTo(
+            element,
+            { opacity: 0.001, y: distance },
+            {
+              opacity: 1,
+              duration: 0.9,
+              ease: springEase,
+              clearProps: 'transform',
+              scrollTrigger: {
+                trigger: element,
+                start: 'top 88%',
+                once: true,
+              },
+            }
+          );
+        });
+
+        gsap.utils.toArray<HTMLElement>('[data-slide-x]').forEach((element) => {
+          gsap.fromTo(
+            element,
+            { opacity: 0.001, x: -24 },
+            {
+              opacity: 1,
+              duration: 0.9,
+              ease: springEase,
+              clearProps: 'transform',
+              scrollTrigger: {
+                trigger: element,
+                start: 'top 90%',
+                once: true,
+              },
+            }
+          );
+        });
+
+        document.querySelectorAll<HTMLElement>('[data-words]').forEach((element) => {
+          const spans = Array.from(element.querySelectorAll<HTMLElement>('.word'));
+
+          gsap.fromTo(
+            spans,
+            { opacity: 0.001, y: 10, filter: 'blur(2px)' },
+            {
+              opacity: 1,
+              y: 0,
+              filter: 'blur(0px)',
+              duration: 0.7,
+              ease: 'power3.out',
+              stagger: 0.05,
+              scrollTrigger: {
+                trigger: element,
+                start: 'top 90%',
+                once: true,
+              },
+            }
+          );
+        });
+      }
+
+      root.classList.remove('motion-pending');
+      ScrollTrigger.refresh();
+
+      type VeloraWindow = Window & {
+        __gsap?: typeof gsap;
+        __ScrollTrigger?: typeof ScrollTrigger;
+      };
+      const veloraWindow = window as VeloraWindow;
+      veloraWindow.__gsap = gsap;
+      veloraWindow.__ScrollTrigger = ScrollTrigger;
+    </script>
+  </body>
+</html>

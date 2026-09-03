@@ -1,0 +1,236 @@
+---
+---
+
+<section class="hero-section" id="hero">
+  <div class="hero-container">
+    <div class="hero-top-row">
+      <div class="hero-top-content">
+        <h3 class="hero-welcome" data-hero="up" data-delay="0">Welcome.</h3>
+        <p class="hero-bio" data-hero="up" data-delay="0.1">
+          I craft visually stunning and highly functional designs that elevate brands and create meaningful digital experiences. Let’s build something exceptional together.
+        </p>
+        <a href="#about" class="link-underline" data-hero="up" data-delay="0.2">
+          <span>About me</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-bottom-row">
+      <div class="hero-profile">
+        <div class="hero-image-wrap" data-hero="down" data-delay="0.1">
+          <img src="/assets/hero-portrait.png" alt="" class="hero-portrait" width="1200" height="900" />
+        </div>
+        <h1 class="hero-name" data-hero="down" data-delay="0">Jane Smith</h1>
+      </div>
+
+      <a href="#works" class="link-underline hero-scroll-link" data-hero="down" data-delay="0.2">
+        <span>Scroll to see more</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+    max-height: 1024px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--bg-tint);
+    padding-top: 64px;
+  }
+
+  .hero-container {
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    height: 100%;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 32px;
+    padding: 40px 80px 64px;
+  }
+
+  .hero-top-row {
+    display: flex;
+    width: 100%;
+    flex: none;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .hero-top-content {
+    display: flex;
+    width: 35%;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    overflow: hidden;
+  }
+
+  .hero-welcome {
+    width: 100%;
+    color: var(--text);
+    font-size: var(--fs-h3);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 120%;
+  }
+
+  .hero-bio {
+    width: 100%;
+    color: var(--text-muted);
+    font-size: var(--fs-body);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 140%;
+  }
+
+  .hero-bottom-row {
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    min-height: 0;
+    flex: 1 0 0;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .hero-profile {
+    display: flex;
+    width: 48%;
+    height: 100%;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 32px;
+    overflow: visible;
+  }
+
+  .hero-image-wrap {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: var(--bg-card);
+  }
+
+  @media (min-width: 1200px) {
+    .hero-image-wrap {
+      position: relative;
+      top: 12.5px;
+    }
+  }
+
+  .hero-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .hero-image-wrap:hover .hero-portrait {
+    transform: scale(1.04);
+  }
+
+  .hero-name {
+    width: 100%;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    font-weight: 500;
+    letter-spacing: -0.06em;
+    line-height: 120%;
+    white-space: nowrap;
+  }
+
+  .hero-scroll-link {
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 1199.98px) {
+    .hero-section {
+      max-height: none;
+    }
+
+    .hero-container {
+      gap: 48px;
+      padding: 40px 40px 64px;
+    }
+
+    .hero-top-content,
+    .hero-profile {
+      width: 45%;
+    }
+  }
+
+  @media (max-width: 809.98px) {
+    .hero-section {
+      min-height: 0;
+      height: auto;
+      max-height: none;
+    }
+
+    .hero-container {
+      flex: none;
+      gap: 64px;
+      padding: 24px 24px 48px;
+    }
+
+    .hero-top-row {
+      justify-content: flex-start;
+    }
+
+    .hero-top-content {
+      width: 100%;
+    }
+
+    .hero-bottom-row {
+      flex: none;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .hero-profile {
+      width: 100%;
+      height: auto;
+      gap: 16px;
+    }
+
+    .hero-image-wrap {
+      max-width: 500px;
+    }
+
+    .hero-name {
+      font-size: var(--fs-h1);
+      white-space: normal;
+    }
+
+    .hero-welcome {
+      line-height: 130%;
+    }
+
+    .hero-scroll-link {
+      display: none;
+    }
+  }
+</style>
