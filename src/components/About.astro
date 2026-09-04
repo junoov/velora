@@ -3,27 +3,32 @@ const experiences = [
   {
     role: "Senior Product Designer",
     company: "Visionary Labs",
-    period: "2024 - Present"
+    period: "2024 - Present",
+    description: "Led end-to-end product design, from research to high-fidelity UI, ensuring seamless user experiences. Collaborated with cross-functional teams to drive product strategy and enhance usability. Developed and maintained design systems, conducted user testing, and mentored junior designers."
   },
   {
     role: "UI/UX Designer",
     company: "Creative Hive Agency",
-    period: "2022-2024"
+    period: "2022-2024",
+    description: "Designed intuitive user interfaces and seamless user experiences across web and mobile platforms. Conducted user research, wireframing, and prototyping to improve engagement and accessibility. Worked closely with developers to ensure design feasibility and implementation."
   },
   {
     role: "Motion Graphics Designer",
     company: "PixelWave Studios",
-    period: "2021"
+    period: "2021",
+    description: "Created dynamic animations and visual effects for marketing campaigns, product demos, and brand storytelling. Developed engaging motion designs that enhanced user interaction and improved content engagement across digital platforms."
   },
   {
     role: "Graphic Designer",
     company: "DesignCraft Inc.",
-    period: "2020"
+    period: "2020",
+    description: "Designed branding, marketing materials, and digital assets for various platforms, ensuring strong visual consistency. Worked on print and digital media, including social media graphics, advertisements, and packaging design."
   },
   {
     role: "Design Intern",
     company: "ArtiFlex Solutions",
-    period: "2018-2019"
+    period: "2018-2019",
+    description: "Assisted in designing user interfaces, marketing materials, and branding assets. Gained hands-on experience in wireframing, prototyping, and collaborating with teams on design projects. Contributed to creative brainstorming and design iterations."
   }
 ];
 ---
@@ -52,15 +57,28 @@ const experiences = [
     </div>
 
     <div class="experience-list">
-      {experiences.map((experience) => (
-        <div class="experience-item" tabindex="0" role="button" data-reveal>
+      {experiences.map((experience, index) => (
+        <div
+          class="experience-item"
+          tabindex="0"
+          role="button"
+          aria-expanded="false"
+          aria-controls={`experience-content-${index}`}
+          data-experience
+          data-reveal
+        >
           <div class="experience-main">
             <h6>{experience.role}</h6>
             <p>{experience.company}</p>
           </div>
           <div class="experience-secondary">
             <p>{experience.period}</p>
-            <span class="experience-plus" aria-hidden="true"></span>
+            <svg class="experience-plus" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3.75 12H20.25M12 3.75V20.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="experience-content" id={`experience-content-${index}`} aria-hidden="true">
+            <p>{experience.description}</p>
           </div>
           <span class="experience-line" aria-hidden="true"></span>
         </div>
@@ -195,18 +213,18 @@ const experiences = [
   .experience-item {
     position: relative;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    column-gap: 24px;
+    row-gap: 0;
     padding: 0 0 24px;
     cursor: pointer;
+    outline: none;
   }
 
   .experience-main {
-    width: 1px;
+    width: auto;
     display: flex;
-    flex: 2 0 0;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
@@ -233,9 +251,8 @@ const experiences = [
 
   .experience-secondary {
     align-self: stretch;
-    width: 1px;
+    width: auto;
     display: flex;
-    flex: 1 0 0;
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
@@ -246,27 +263,61 @@ const experiences = [
   }
 
   .experience-plus {
-    position: relative;
+    display: block;
     width: 20px;
     height: 20px;
     flex: none;
+    color: var(--line-hover);
+    transform-origin: center;
+    transition: transform 0.45s var(--ease-link);
+  }
+
+  .experience-item.is-expanded .experience-plus {
+    transform: rotate(45deg);
+  }
+
+  .experience-content {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 500px;
+    max-height: 0;
+    margin-top: 0;
+    overflow: hidden;
     color: var(--text-muted);
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.55s var(--ease-out), margin-top 0.55s var(--ease-out), opacity 0.35s var(--ease-link), visibility 0s linear 0.55s;
   }
 
-  .experience-plus::before,
-  .experience-plus::after {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 14px;
-    height: 1.5px;
-    background: currentColor;
-    content: "";
-    transform: translate(-50%, -50%);
+  .experience-content p {
+    width: 100%;
+    color: var(--text-muted);
+    font-size: var(--fs-body);
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.04em;
   }
 
-  .experience-plus::after {
-    transform: translate(-50%, -50%) rotate(90deg);
+  .experience-item.is-expanded .experience-content {
+    max-height: 240px;
+    margin-top: 16px;
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  .experience-item:focus-visible {
+    outline: 1px solid var(--line-hover);
+    outline-offset: 4px;
+  }
+
+  /* The icon is a stroked plus, matching the source site's 24px symbol. */
+  .experience-plus path {
+    fill: none;
+  }
+
+  .experience-plus {
+    width: 20px;
   }
 
   .experience-line {
@@ -356,9 +407,10 @@ const experiences = [
     }
 
     .experience-item {
+      display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 8px;
+      gap: 0;
       padding-bottom: 20px;
     }
 
@@ -366,7 +418,18 @@ const experiences = [
       order: 1;
       width: 100%;
       flex: none;
+      margin-top: 8px;
       gap: 0;
+    }
+
+    .experience-content {
+      order: 2;
+      width: 100%;
+      max-width: none;
+    }
+
+    .experience-item.is-expanded .experience-content {
+      margin-top: 16px;
     }
 
     .experience-secondary {
@@ -389,3 +452,35 @@ const experiences = [
     }
   }
 </style>
+
+<script>
+  const experienceItems = Array.from(document.querySelectorAll<HTMLElement>('[data-experience]'));
+
+  const setExperienceState = (item: HTMLElement, expanded: boolean) => {
+    experienceItems.forEach((other) => {
+      const isCurrent = other === item;
+      const isExpanded = isCurrent && expanded;
+      const contentId = other.getAttribute('aria-controls');
+      const content = contentId ? document.getElementById(contentId) : null;
+
+      other.classList.toggle('is-expanded', isExpanded);
+      other.setAttribute('aria-expanded', String(isExpanded));
+      content?.setAttribute('aria-hidden', String(!isExpanded));
+    });
+
+    window.setTimeout(() => window.__veloraMotion?.refresh(), 600);
+  };
+
+  experienceItems.forEach((item) => {
+    item.addEventListener('click', () => {
+      setExperienceState(item, !item.classList.contains('is-expanded'));
+    });
+
+    item.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+
+      event.preventDefault();
+      setExperienceState(item, !item.classList.contains('is-expanded'));
+    });
+  });
+</script>
