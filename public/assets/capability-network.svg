@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540">
+  <title>Network poster</title>
+  <rect width="1200" height="540" fill="#fafafa"/>
+  <g fill="none" stroke="#d9d6cf" stroke-width="1">
+    <path d="M0 130h1200M0 410h1200"/>
+    <path d="M300 130v280M600 130v280M900 130v280"/>
+    <path d="M300 130h600M300 410h600"/>
+  </g>
+  <text x="60" y="70" font-family="Inter, Arial, sans-serif" font-size="14" letter-spacing="6" fill="#6d6d6d">03 / KEMAMPUAN</text>
+  <text x="60" y="345" font-family="Inter, Arial, sans-serif" font-size="240" font-weight="500" letter-spacing="-18" fill="#000000">NET</text>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="60" y="440" font-size="15" letter-spacing="4" fill="#000000">JARINGAN KOMPUTER</text>
+    <text x="60" y="470" font-size="13" letter-spacing="3" fill="#999999">SUBNETTING · ROUTING · CISCO</text>
+    <text x="1140" y="70" font-size="13" letter-spacing="3" fill="#999999" text-anchor="end">TOPOLOGI</text>
+  </g>
+  <g fill="#000000">
+    <rect x="1056" y="390" width="14" height="14"/>
+    <rect x="1112" y="390" width="14" height="14"/>
+    <rect x="1084" y="432" width="14" height="14"/>
+  </g>
+  <path d="M1063 397l28 42M1119 397l-28 42" stroke="#000000" stroke-width="1"/>
+</svg>

@@ -63,6 +63,7 @@
   --gold: #e3caa6;
   --dark: #000000;
   --dark-line: rgba(255, 255, 255, 0.15);
+  --project-edge: rgba(18, 18, 18, 0.08);
   --max-w: 1400px;
   --content-w: 1240px;
 

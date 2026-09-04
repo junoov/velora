@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540">
+  <title>Backend poster</title>
+  <rect width="1200" height="540" fill="#fafafa"/>
+  <path d="M760 0v540" stroke="#d9d6cf" stroke-width="1"/>
+  <path d="M0 240h1200" stroke="#d9d6cf" stroke-width="1"/>
+  <text x="980" y="480" font-family="Inter, Arial, sans-serif" font-size="200" font-weight="500" letter-spacing="-16" fill="#ececec">02</text>
+  <text x="60" y="70" font-family="Inter, Arial, sans-serif" font-size="14" letter-spacing="6" fill="#6d6d6d">02 / KEMAMPUAN</text>
+  <text x="60" y="330" font-family="Inter, Arial, sans-serif" font-size="300" font-weight="500" letter-spacing="-24" fill="#000000">BE</text>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="60" y="440" font-size="15" letter-spacing="4" fill="#000000">PENGEMBANGAN BACKEND</text>
+    <text x="60" y="470" font-size="13" letter-spacing="3" fill="#999999">AUTH · DATABASE · SERVER LOGIC</text>
+    <text x="1140" y="70" font-size="13" letter-spacing="3" fill="#999999" text-anchor="end">SISI SERVER</text>
+  </g>
+  <path d="M790 240h410" stroke="#000000" stroke-width="2"/>
+  <path d="M790 228v24M1200 228v24" stroke="#000000" stroke-width="1"/>
+</svg>

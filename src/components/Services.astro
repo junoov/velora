@@ -4,25 +4,33 @@ const services = [
     num: "01",
     title: "Pengembangan Frontend",
     description: "Antarmuka responsif dan mudah diakses dengan struktur komponen yang rapi serta interaksi yang matang.",
-    image: "/assets/service-graphic.jpg"
+    note: "Layout, komponen, dan aksesibilitas.",
+    image: "/assets/capability-frontend.svg",
+    alt: "Poster tipografi FE untuk pengembangan frontend"
   },
   {
     num: "02",
     title: "Pengembangan Backend",
     description: "Logika sisi server, autentikasi, dan integrasi database untuk aplikasi yang benar-benar jalan.",
-    image: "/assets/service-lifestyle.jpg"
+    note: "Auth, database, dan logika server.",
+    image: "/assets/capability-backend.svg",
+    alt: "Poster tipografi BE untuk pengembangan backend"
   },
   {
     num: "03",
     title: "Jaringan Komputer",
     description: "Dasar-dasar jaringan dengan latihan langsung memakai Cisco, mulai dari subnetting, routing, hingga troubleshooting.",
-    image: "/assets/service-digital.jpg"
+    note: "Subnetting, routing, dan Cisco.",
+    image: "/assets/capability-network.svg",
+    alt: "Poster tipografi NET untuk jaringan komputer"
   },
   {
     num: "04",
     title: "Keamanan Aplikasi",
     description: "Pengembangan yang sadar keamanan dan pengujian kerentanan web berbasis OWASP, termasuk pemakaian OWASP ZAP.",
-    image: "/assets/service-social.jpg"
+    note: "OWASP, ZAP, dan pengujian kerentanan.",
+    image: "/assets/capability-security.svg",
+    alt: "Poster tipografi SEC untuk keamanan aplikasi"
   }
 ];
 const summary = "Saya membangun aplikasi web secara menyeluruh, dari antarmuka hingga deployment, dengan bekal jaringan komputer dan keamanan web.";
@@ -56,7 +64,8 @@ const summary = "Saya membangun aplikasi web secara menyeluruh, dari antarmuka h
             </div>
           </div>
           <div class="service-image-wrap" data-reveal="sm">
-            <img src={service.image} alt={service.title} class="service-image" width="1024" height="768" loading="lazy" />
+            <img src={service.image} alt={service.alt} class="service-image" width="1200" height="540" loading="lazy" />
+            <p class="service-note">{service.note}</p>
           </div>
         </article>
       ))}
@@ -112,6 +121,12 @@ const summary = "Saya membangun aplikasi web secara menyeluruh, dari antarmuka h
     height: 1px;
     background: var(--line);
     content: "";
+    transition: background 0.3s var(--ease-out);
+  }
+
+  .service-row:hover::before,
+  .service-row:focus-within::before {
+    background: var(--line-hover);
   }
 
   .service-num {
@@ -161,9 +176,11 @@ const summary = "Saya membangun aplikasi web secara menyeluruh, dari antarmuka h
 
   .service-image-wrap {
     flex: 1;
+    position: relative;
     height: 180px;
     overflow: hidden;
     border-radius: 4px;
+    border: 1px solid var(--project-edge);
     background: var(--bg-subtle);
   }
 
@@ -172,12 +189,39 @@ const summary = "Saya membangun aplikasi web secara menyeluruh, dari antarmuka h
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s var(--ease-out);
+    filter: grayscale(1) brightness(0.99);
+    transition: filter 0.45s var(--ease-out), transform 0.6s var(--ease-out);
   }
 
   .service-row:hover .service-image,
   .service-row:focus-within .service-image {
-    transform: scale(1.04);
+    filter: grayscale(1) brightness(0.96) blur(4px);
+    transform: scale(1.02);
+  }
+
+  .service-note {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 20px;
+    background: rgba(250, 250, 250, 0.78);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-out);
+    pointer-events: none;
+  }
+
+  .service-row:hover .service-note,
+  .service-row:focus-within .service-note {
+    opacity: 1;
   }
 
   @media (max-width: 1199.98px) {
@@ -213,17 +257,11 @@ const summary = "Saya membangun aplikasi web secara menyeluruh, dari antarmuka h
       padding: 64px 24px;
     }
 
-    .service-list {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
     .service-row {
       flex-direction: column;
       align-items: flex-start;
       gap: 0;
       padding: 24px 0;
-      border-top: 0;
     }
 
     .service-num {
@@ -257,6 +295,15 @@ const summary = "Saya membangun aplikasi web secara menyeluruh, dari antarmuka h
       margin-top: 16px;
       aspect-ratio: 2.785;
       order: 2;
+    }
+
+    .service-note {
+      inset: auto 0 0 0;
+      justify-content: flex-start;
+      padding: 10px 14px;
+      text-align: left;
+      opacity: 1;
+      background: rgba(250, 250, 250, 0.85);
     }
   }
 </style>

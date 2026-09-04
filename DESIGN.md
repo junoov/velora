@@ -1,5 +1,18 @@
 # Velora Design System
 
+## 0. Research Log
+
+- [Refero Grafik](https://styles.refero.design/style/0226e028-3cd3-440d-b469-ca459267161d), design system, 4 September 2026. Observed from the indexed reference: monochrome editorial grid, hairline framing, and project artifacts used as the imagery. Reusable pattern: let real work and technical artifacts carry the image area. Deliberately not copying: the sharp three-column grid and complete rejection of elevation.
+- [Chester's Garden](https://styles.refero.design/style/a639fa6c-1705-47c2-b452-d4479469a734), design system, 4 September 2026. Observed from the indexed reference: restrained paper-like surfaces with a one-pixel inset edge and one low shadow level for selected image cards. Reusable pattern: combine a hairline edge with a soft, low-opacity shadow rather than a heavy floating card. Deliberately not copying: masonry composition and serif-led typography.
+- [DUAI Project Gallery](https://github.com/siosio34/duai-hackerton-project-gallery), product repository, 4 September 2026. Observed from the project description: deterministic technical SVG compositions replace stock imagery and fake screenshots. Reusable pattern: capability sections may stay text-only and evidence-led when representative screenshots are unavailable. Deliberately not copying: its generative visuals and vermillion accent.
+- [Numbered Services (shadcn-ui-blocks)](https://www.shadcn-ui-blocks.com/blocks/portfolio-pro/services-sections/numbered-services), pattern library, 4 September 2026. Observed: large-numbered ruled rows with a title, plain description, and honest scope. Reusable pattern: capability notes as plain editorial text. Deliberately not copying: its component code and muted-foreground tokens.
+
+### Brand marks
+- Header wordmark: `Vian.`, set in Inter 600. Rizky Noviansyah remains the formal name in the hero, footer, and metadata.
+- Monogram: geometric black `V.` glyph (`/assets/logo-mark.svg`), also rendered as the favicon on a white tile. No gradients, 3D, or code-symbol cliches.
+- [Prashant's Interactive Website Design Portfolio](https://www.pinterest.com/pin/prashants-interactive-website-design-portfolio--414260865710375177/), Pinterest preview, 4 September 2026. Only the public search preview was accessible. Reusable pattern: developer work is presented through interface artifacts rather than generic lifestyle photography. Deliberately not copying: page composition, branding, or proprietary imagery.
+- Anti-reference: generic dark developer dashboards with neon gradients, terminal decoration, and repeated icon cards. These patterns would conflict with Velora's quiet editorial identity and make the portfolio interchangeable.
+
 ## 1. Atmosphere & Identity
 
 Velora is a quiet, editorial portfolio: generous white space, restrained typography, and small interactions that reward scrolling without competing with the work. Its signature is the monochrome gallery rhythm interrupted by warm sand accents and a tactile stack of sticky service panels.
@@ -25,6 +38,7 @@ Velora is a quiet, editorial portfolio: generous white space, restrained typogra
 | Warm accent | `--gold` | `#e3caa6` | Footer display accent and selection |
 | Dark surface | `--dark` | `#000000` | Footer and dark CTA |
 | Dark divider | `--dark-line` | `rgba(255, 255, 255, 0.15)` | Footer separators |
+| Project edge | `--project-edge` | `rgba(18, 18, 18, 0.08)` | Hairline frame around project media |
 
 ### Rules
 
@@ -113,12 +127,24 @@ All spacing derives from a base of **4px**.
 - **Motion**: underline width and arrow transform only.
 
 ### Sticky service row
-- **Structure**: number, title/description group, cropped image.
-- **Variants**: desktop/tablet `204px`; phone natural content-driven height.
+- **Structure**: number, title/description group, and a typographic poster panel.
+- **Variants**: desktop `180px` poster panel right of `60%` text; phone full-width poster at ratio `2.785` with a permanent note strip.
 - **Spacing**: `--space-3` vertical inset, `--space-10` column gap.
-- **States**: default, hover/focus-within image emphasis.
-- **Accessibility**: article with readable text and meaningful image alt.
-- **Motion**: content enters with a short translate/opacity reveal; sticky placement remains CSS.
+- **States**: rest (clean poster), hover/focus (poster blurs, note appears), divider emphasis.
+- **Accessibility**: article with readable text; note is decorative repetition of the visible description.
+- **Motion**: transform/opacity/filter only; sticky placement remains CSS.
+
+### Capability posters
+- **Structure**: local SVG typographic panels, one per capability: `FE`, `BE`, `NET`, `SEC`.
+- **Rules**: monochrome `#fafafa` paper with black display type, hairline grid lines, real technical vocabulary. No fake dashboards, cyber icons, gradients, or generative illustration.
+
+### Work card (editorial monochrome)
+- **Structure**: bordered card holding framed grayscale media, a blur note layer, and a caption row of title, arrow, and category.
+- **Variants**: two-column desktop grid; single column phone.
+- **Spacing**: `12px` card inset, `14px` media-to-meta gap, `4px` media radius, `6px` card radius, hairline `--project-edge` frame on `--bg-card`.
+- **States**: rest (grayscale), hover/focus (media blurs and darkens, note with description and stack rises), active link.
+- **Accessibility**: semantic anchor, meaningful alt, focus-visible note reveal, visible focus outline.
+- **Motion**: transform/opacity/filter only; no elevation or color restoration.
 
 ### Review carousel
 - **Structure**: clipped viewport, horizontal card track, dot pagination.
@@ -151,9 +177,11 @@ All spacing derives from a base of **4px**.
 
 ### Strategy
 
-Use **mixed**, with restrained tonal surfaces for cards and borders/dividers for structure. Shadows are reserved for the floating template widget because it must read as a separate fixed layer.
+Use **minimal**, with tonal surfaces and hairline borders for structure. The page relies on surface contrast and typography instead of drop shadows; the floating template widget remains the only elevated layer.
 
-- Light cards use `--bg-card` against `--bg` rather than generic drop shadows.
+- Light cards use `--bg-card` against `--bg`; project work is framed with `--project-edge` and no shadow.
 - Dividers use `--line` or `--dark-line`; hover dividers use `--line-hover`.
 - The floating widget uses a low-opacity glass shell, a dark preview surface, and a restrained shadow.
+- Project screenshots render permanently grayscale and blur with a note on hover; project color never returns inside the gallery so the page keeps one editorial rhythm.
+- Capability posters are typographic SVG panels. Do not use stock photography, generative diagrams, fake dashboards, neon cyber imagery, or decorative gradients.
 - Never add arbitrary neon glows, heavy shadows, or decorative gradients.

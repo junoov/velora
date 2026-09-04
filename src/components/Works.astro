@@ -13,43 +13,11 @@ const projects = [
     category: "Website Bisnis · Next.js",
     description: "Website konveksi untuk memperkenalkan layanan, katalog produk, daftar harga, dan alur konsultasi pelanggan.",
     stack: "Next.js · Responsive Web",
-    image: "/assets/project-roller-customize.jpg",
+    image: "/assets/project-roller-customize.webp",
     link: "https://rollercustomize.com/"
-  },
-  {
-    title: "Cafe POS",
-    category: "Full-Stack · TypeScript",
-    description: "Aplikasi point-of-sale untuk membantu operasional kafe.",
-    stack: "TypeScript",
-    monogram: "CP",
-    link: "https://github.com/junoov/pos-system-cafe"
-  },
-  {
-    title: "Auraquina Juni",
-    category: "Full-Stack · PHP",
-    description: "Aplikasi web full-stack berbasis PHP dan Blade, dikemas dengan Docker.",
-    stack: "PHP · Blade · Docker",
-    monogram: "AJ",
-    link: "https://github.com/junoov/auraquina-juni"
-  },
-  {
-    title: "Proyek Kita",
-    category: "Web · Astro",
-    description: "Proyek web berbasis Astro dan TypeScript yang sudah tayang di Vercel.",
-    stack: "Astro · TypeScript · Vercel",
-    monogram: "PK",
-    link: "https://proyek-kita.vercel.app"
-  },
-  {
-    title: "Velora Rebuild",
-    category: "Frontend · Astro",
-    description: "Rebuild template Velora ke Astro dengan animasi scroll hasil reverse engineering.",
-    stack: "Astro · GSAP · Lenis",
-    monogram: "VR",
-    link: "https://github.com/junoov/velora"
   }
 ];
-const summary = "Kumpulan proyek web yang saya bangun, mulai dari produk yang sudah tayang hingga eksperimen frontend dan full-stack.";
+const summary = "Dua proyek web yang sudah tayang dan saya kerjakan dari hulu ke hilir, mulai dari konsep hingga deployment.";
 ---
 
 <section class="works-section" id="projects">
@@ -79,21 +47,20 @@ const summary = "Kumpulan proyek web yang saya bangun, mulai dari produk yang su
           target={project.link.startsWith('http') ? '_blank' : undefined}
           rel={project.link.startsWith('http') ? 'noopener noreferrer' : undefined}
         >
-          <div class="work-image-wrap">
-            {project.image ? (
-              <img src={project.image} alt={`Tampilan antarmuka ${project.title}`} class="work-image" width="1440" height="1080" loading="lazy" />
-            ) : (
-              <div class="work-cover">
-                <span class="work-monogram" aria-hidden="true">{project.monogram}</span>
-              </div>
-            )}
-            <div class="work-overlay">
-              <h6>{project.description}</h6>
-              <p class="work-stack">{project.stack}</p>
+          <div class="work-media">
+            <img src={project.image} alt={`Tampilan antarmuka ${project.title}`} class="work-image" width="1440" height="1080" loading="lazy" />
+            <div class="work-note">
+              <p>{project.description}</p>
+              <span>{project.stack}</span>
             </div>
           </div>
           <div class="work-meta">
-            <h5>{project.title}</h5>
+            <div class="work-meta-row">
+              <h5>{project.title}</h5>
+              <svg class="work-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 17L17 7M17 7H9M17 7V15"></path>
+              </svg>
+            </div>
             <p>{project.category}</p>
           </div>
         </a>
@@ -130,31 +97,21 @@ const summary = "Kumpulan proyek web yang saya bangun, mulai dari produk yang su
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 14px;
     padding: 12px;
-    overflow: hidden;
+    border: 1px solid var(--project-edge);
     border-radius: 6px;
     background: var(--bg-card);
     color: var(--text);
     text-decoration: none;
   }
 
-  .work-image-wrap {
+  .work-media {
     position: relative;
     width: 100%;
-    min-height: 250px;
     aspect-ratio: 4 / 3;
     overflow: hidden;
     border-radius: 4px;
-    background: var(--bg-subtle);
-  }
-
-  .work-cover {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    display: grid;
-    place-items: center;
     background: var(--bg-subtle);
   }
 
@@ -163,34 +120,17 @@ const summary = "Kumpulan proyek web yang saya bangun, mulai dari produk yang su
     height: 100%;
     object-fit: cover;
     object-position: top center;
-    transition: transform 0.7s var(--ease-out);
+    filter: grayscale(1) brightness(0.97);
+    transition: transform 0.7s var(--ease-out), filter 0.45s var(--ease-out);
   }
 
-  .work-monogram {
-    color: var(--text-faint);
-    font-family: var(--font-display);
-    font-size: 64px;
-    font-weight: 500;
-    letter-spacing: -0.06em;
-    transition: transform 0.7s var(--ease-out);
-  }
-
-  .work-card:hover .work-monogram,
-  .work-card:focus-visible .work-monogram,
   .work-card:hover .work-image,
   .work-card:focus-visible .work-image {
-    transform: scale(1.08);
+    transform: scale(1.02);
+    filter: grayscale(1) brightness(0.86) blur(5px);
   }
 
-  .work-stack {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 140%;
-    letter-spacing: -0.03em;
-  }
-
-  .work-overlay {
+  .work-note {
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -198,30 +138,36 @@ const summary = "Kumpulan proyek web yang saya bangun, mulai dari produk yang su
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 40px;
-    opacity: 0;
-    overflow: hidden;
-    background: rgba(0, 0, 0, 0.55);
+    gap: 6px;
+    padding: 32px;
+    background: rgba(18, 18, 18, 0.35);
     color: #fff;
     text-align: center;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    transition: opacity 0.4s ease;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    pointer-events: none;
   }
 
-  .work-overlay h6 {
-    max-width: 500px;
-    color: #fff;
-    font-size: 18px;
+  .work-note p {
+    max-width: 420px;
+    font-size: 15px;
     font-weight: 500;
     line-height: 140%;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.03em;
   }
 
-  .work-card:hover .work-overlay,
-  .work-card:focus-visible .work-overlay {
+  .work-note span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 13px;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+  }
+
+  .work-card:hover .work-note,
+  .work-card:focus-visible .work-note {
     opacity: 1;
+    transform: translateY(0);
   }
 
   .work-meta {
@@ -229,8 +175,16 @@ const summary = "Kumpulan proyek web yang saya bangun, mulai dari produk yang su
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
-    padding: 4px;
+    gap: 3px;
+    padding: 0 2px;
+  }
+
+  .work-meta-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
   }
 
   .work-meta h5 {
@@ -241,12 +195,24 @@ const summary = "Kumpulan proyek web yang saya bangun, mulai dari produk yang su
     letter-spacing: -0.05em;
   }
 
-  .work-meta p {
+  .work-meta > p {
     color: var(--text-muted);
     font-size: 16px;
     font-weight: 400;
     line-height: 140%;
     letter-spacing: -0.04em;
+  }
+
+  .work-arrow {
+    flex: none;
+    color: var(--text-muted);
+    transition: transform 0.35s var(--ease-out), color 0.35s var(--ease-out);
+  }
+
+  .work-card:hover .work-arrow,
+  .work-card:focus-visible .work-arrow {
+    transform: translate(2px, -2px);
+    color: var(--text);
   }
 
   @media (max-width: 1199.98px) {
@@ -269,15 +235,28 @@ const summary = "Kumpulan proyek web yang saya bangun, mulai dari produk yang su
     .works-grid {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 20px;
     }
 
-    .work-card {
-      flex: none;
+    .work-media {
+      min-height: 220px;
     }
 
-    .work-overlay {
-      padding: 24px;
+    .work-note {
+      position: absolute;
+      inset: auto 0 0 0;
+      align-items: flex-start;
+      text-align: left;
+      gap: 4px;
+      padding: 14px 16px;
+      background: rgba(18, 18, 18, 0.55);
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .work-note p {
+      max-width: none;
+      font-size: 14px;
     }
   }
 </style>
