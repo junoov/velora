@@ -1,43 +1,47 @@
 ---
 const projects = [
   {
-    title: "Korda",
-    category: "Creative Agency Site",
-    description: "Minimal, monochromatic Framer template built for interior design studios and creative agencies.",
-    image: "/assets/work-korda.png",
-    link: "/korda"
+    title: "Cafe POS",
+    monogram: "CP",
+    category: "Full-Stack · TypeScript",
+    description: "Point-of-sale web application for café operations.",
+    stack: "TypeScript",
+    link: "https://github.com/junoov/pos-system-cafe"
   },
   {
-    title: "Folira",
-    category: "Creative Portfolio Site",
-    description: "Interactive Framer portfolio and resume template for creative professionals.",
-    image: "/assets/work-folira.png",
-    link: "/folira"
+    title: "Auraquina Juni",
+    monogram: "AJ",
+    category: "Full-Stack · PHP",
+    description: "Full-stack web application built with PHP and Blade, containerized with Docker.",
+    stack: "PHP · Blade · Docker",
+    link: "https://github.com/junoov/auraquina-juni"
   },
   {
-    title: "Modio",
-    category: "Minimal Portfolio Site",
-    description: "Minimal Framer portfolio template with sidebar layout for creative professionals. ",
-    image: "/assets/work-modio.png",
-    link: "/modio"
+    title: "Proyek Kita",
+    monogram: "PK",
+    category: "Web · Astro",
+    description: "Astro and TypeScript web project, deployed live on Vercel.",
+    stack: "Astro · TypeScript · Vercel",
+    link: "https://proyek-kita.vercel.app"
   },
   {
-    title: "Revana",
-    category: "Creative Agency Site",
-    description: "Bold Framer template for interior designers and creative studios",
-    image: "/assets/work-revana.png",
-    link: "/revana"
+    title: "Velora Rebuild",
+    monogram: "VR",
+    category: "Frontend · Astro",
+    description: "A faithful Astro rebuild of the Velora Framer template with reverse-engineered scroll motion.",
+    stack: "Astro · GSAP · Lenis",
+    link: "https://github.com/junoov/velora"
   }
 ];
-const summary = "Discover curated works that inspire and deliver impact, showcasing creativity, functionality, and design excellence.";
+const summary = "Selected projects across frontend, backend, and deployment — source code and live demos live on GitHub.";
 ---
 
-<section class="works-section" id="works">
+<section class="works-section" id="projects">
   <div class="container-wide">
     <div class="section-header">
       <div class="section-heading">
         <div class="section-dash"></div>
-        <h2 class="section-label-text">Selected Works</h2>
+        <h2 class="section-label-text">Selected Projects</h2>
       </div>
       <p class="section-summary" data-words>
         {summary.split(/\s+/).map((word, index, words) => (
@@ -51,19 +55,22 @@ const summary = "Discover curated works that inspire and deliver impact, showcas
 
     <div class="works-grid">
       {projects.map((project) => (
-        <a href={project.link} class="work-card" data-cursor-hover="work" data-reveal>
+        <a
+          href={project.link}
+          class="work-card"
+          data-cursor-hover="work"
+          data-reveal
+          target={project.link.startsWith('http') ? '_blank' : undefined}
+          rel={project.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+        >
           <div class="work-image-wrap">
+            <div class="work-cover">
+              <span class="work-monogram" aria-hidden="true">{project.monogram}</span>
+            </div>
             <div class="work-overlay">
               <h6>{project.description}</h6>
+              <p class="work-stack">{project.stack}</p>
             </div>
-            <img
-              src={project.image}
-              alt={project.title}
-              class="work-image"
-              width="1024"
-              height="768"
-              loading="lazy"
-            />
           </div>
           <div class="work-meta">
             <h5>{project.title}</h5>
@@ -122,12 +129,35 @@ const summary = "Discover curated works that inspire and deliver impact, showcas
     background: var(--bg-subtle);
   }
 
-  .work-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .work-cover {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: grid;
+    place-items: center;
+    background: var(--bg-subtle);
+  }
+
+  .work-monogram {
+    color: var(--text-faint);
+    font-family: var(--font-display);
+    font-size: 64px;
+    font-weight: 500;
+    letter-spacing: -0.06em;
     transition: transform 0.7s var(--ease-out);
+  }
+
+  .work-card:hover .work-monogram,
+  .work-card:focus-visible .work-monogram {
+    transform: scale(1.08);
+  }
+
+  .work-stack {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.03em;
   }
 
   .work-overlay {
@@ -135,8 +165,10 @@ const summary = "Discover curated works that inspire and deliver impact, showcas
     inset: 0;
     z-index: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 8px;
     padding: 40px;
     opacity: 0;
     overflow: hidden;
@@ -160,11 +192,6 @@ const summary = "Discover curated works that inspire and deliver impact, showcas
   .work-card:hover .work-overlay,
   .work-card:focus-visible .work-overlay {
     opacity: 1;
-  }
-
-  .work-card:hover .work-image,
-  .work-card:focus-visible .work-image {
-    transform: scale(1.04);
   }
 
   .work-meta {

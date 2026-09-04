@@ -1,9 +1,9 @@
 ---
 const footerLinks = [
-  { label: "Works", href: "#works" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Review", href: "#review" }
+  { label: "Projects", href: "#projects" },
+  { label: "Capabilities", href: "#capabilities" },
+  { label: "Experience", href: "#about" },
+  { label: "GitHub", href: "https://github.com/junoov/" }
 ];
 ---
 
@@ -23,7 +23,7 @@ const footerLinks = [
         </svg>
       </div>
       <div class="footer-cta-wrap">
-        <a href="mailto:hello.lunis.design@gmail.com" class="footer-cta link-underline-xl" data-slide-x>
+        <a href="mailto:rizkynoviansyah20@gmail.com" class="footer-cta link-underline-xl" data-slide-x>
           <span>Get in touch</span>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -35,25 +35,27 @@ const footerLinks = [
     <div class="footer-content">
       <div class="footer-main">
         <div class="footer-left">
-          <a href="/" class="footer-logo">Velora</a>
+          <a href="/" class="footer-logo">Rizky Noviansyah</a>
           <div class="footer-info">
-            <a href="tel:1234567890">123-456-7890</a>
-            <p>123 Sakura Street, New York City, NY, USA</p>
+            <a href="https://github.com/junoov/" target="_blank" rel="noopener noreferrer">github.com/junoov</a>
+            <a href="mailto:rizkynoviansyah20@gmail.com">rizkynoviansyah20@gmail.com</a>
           </div>
         </div>
 
         <nav class="footer-nav" aria-label="Footer navigation">
           {footerLinks.map((link) => (
-            <a href={link.href}>{link.label}</a>
+            <a
+              href={link.href}
+              target={link.href.startsWith('http') ? '_blank' : undefined}
+              rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >{link.label}</a>
           ))}
         </nav>
       </div>
 
       <div class="footer-divider"></div>
 
-      <p class="footer-credit">
-        <a href="https://lunisdesign.com" target="_blank" rel="noopener noreferrer">Created by Lunis Design</a>
-      </p>
+      <p class="footer-credit">© 2026 Rizky Noviansyah</p>
     </div>
   </div>
 </footer>

@@ -1,0 +1,217 @@
+---
+interface Certification {
+  name: string;
+  issuer: string;
+  year: string;
+  skills?: string;
+  url?: string;
+}
+
+// Tambahkan sertifikat nyata di sini. Component merender null saat list kosong.
+const certifications: Certification[] = [];
+---
+
+{
+  certifications.length > 0 && (
+    <section class="certs-section" id="certifications">
+      <div class="certs-container">
+        <div class="certs-header" data-reveal>
+          <div class="section-dash" />
+          <h2 class="section-label-text">Certifications</h2>
+        </div>
+
+        <div class="certs-list">
+          {certifications.map((cert) => (
+            <div class="cert-item" data-reveal>
+              <div class="cert-main">
+                <h6>{cert.name}</h6>
+                <p>{cert.issuer}</p>
+              </div>
+              <div class="cert-secondary">
+                <p>{cert.year}</p>
+                {cert.skills && <span class="cert-skills">{cert.skills}</span>}
+                {cert.url && (
+                  <a href={cert.url} target="_blank" rel="noopener noreferrer" class="cert-link">
+                    <span>View credential</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M7 17L17 7M17 7H9M17 7V15" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+              <span class="cert-line" aria-hidden="true" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .certs-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: var(--bg);
+  }
+
+  .certs-container {
+    width: 100%;
+    max-width: var(--max-w);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 80px;
+  }
+
+  .certs-header {
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+    flex: 1 0 0;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .certs-list {
+    width: 100%;
+    max-width: 550px;
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .cert-item {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    column-gap: 24px;
+    padding: 0 0 24px;
+  }
+
+  .cert-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .cert-main h6 {
+    width: 100%;
+    color: var(--text);
+    font-size: var(--fs-h6);
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: -0.05em;
+  }
+
+  .cert-main p,
+  .cert-secondary p {
+    color: var(--text-muted);
+    font-size: var(--fs-body);
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.04em;
+  }
+
+  .cert-secondary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .cert-skills {
+    color: var(--text-faint);
+    font-size: 14px;
+    line-height: 140%;
+    letter-spacing: -0.03em;
+    text-align: right;
+  }
+
+  .cert-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 0;
+    color: var(--text);
+    font-size: var(--fs-body);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+  }
+
+  .cert-link::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: var(--text);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-link);
+  }
+
+  .cert-link:hover::after,
+  .cert-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .cert-line {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: var(--line);
+  }
+
+  @media (max-width: 1199.98px) {
+    .certs-container {
+      flex-direction: column;
+      gap: 80px;
+      padding: 80px 40px;
+    }
+
+    .certs-header {
+      max-width: 600px;
+      flex: none;
+      width: 100%;
+    }
+
+    .certs-list {
+      max-width: none;
+      flex: none;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 809.98px) {
+    .certs-container {
+      gap: 40px;
+      padding: 64px 24px;
+    }
+
+    .cert-item {
+      grid-template-columns: 1fr;
+      row-gap: 8px;
+    }
+
+    .cert-secondary {
+      align-items: flex-start;
+    }
+
+    .cert-skills {
+      text-align: left;
+    }
+  }
+</style>

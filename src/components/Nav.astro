@@ -1,23 +1,22 @@
 ---
 const links = [
-  { label: 'Works', href: '#works' },
-  { label: 'Services', href: '#services' },
-  { label: 'About', href: '#about' },
-  { label: 'Reviews', href: '#review' },
-  { label: 'Use Template', href: 'https://framer.link/AMSeDZ8' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Capabilities', href: '#capabilities' },
+  { label: 'Experience', href: '#about' },
+  { label: 'GitHub', href: 'https://github.com/junoov/' },
 ];
 ---
 
 <header class="navbar" id="navbar">
   <nav class="nav-shell" aria-label="Primary navigation">
     <div class="nav-container">
-      <a href="/" class="logo-link" aria-label="Velora home">Velora</a>
+      <a href="/" class="logo-link" aria-label="Rizky Noviansyah home">Rizky.</a>
 
       <div class="nav-links">
         {links.map((link) => (
           <a
             href={link.href}
-            class:list={['nav-link', link.label === 'Use Template' && 'nav-link-template']}
+            class:list={['nav-link', link.label === 'GitHub' && 'nav-link-template']}
             target={link.href.startsWith('http') ? '_blank' : undefined}
             rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
           >

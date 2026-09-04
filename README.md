@@ -20,7 +20,7 @@ velora/
 ├── src/
 │   ├── components/
 │   │   ├── Nav.astro         # Sticky frosted glass navbar + mobile drawer
-│   │   ├── Hero.astro        # Headline "Welcome.", bio, portrait Jane Smith, scroll link
+│   │   ├── Hero.astro        # Headline "Welcome.", bio, portrait Rizky Noviansyah, scroll link
 │   │   ├── Works.astro       # 2x2 grid selected works (Korda, Folira, Modio, Revana)
 │   │   ├── Services.astro    # Sticky stacking cards (Graphic, Lifestyle, Digital, Social)
 │   │   ├── About.astro       # Sticky summary bio + career experience timeline
@@ -41,10 +41,10 @@ velora/
 ## Fitur & Animasi yang Direplikasi 1:1
 
 1. **Header & Navigasi**: Sticky frosted glass (`backdrop-filter: blur(12px)`), logo Velora, smooth anchor scrolling ke setiap section (`#works`, `#services`, `#about`, `#review`), dan mobile hamburger drawer.
-2. **Hero Section**: Typographic layout dengan H1 "Welcome.", deskripsi bio, foto potret Jane Smith dengan hover zoom, dan link scroll to more.
+2. **Hero Section**: Typographic layout dengan H1 "Welcome.", deskripsi bio, foto potret Rizky Noviansyah dengan hover zoom, dan link scroll to more.
 3. **Selected Works**: Grid 2x2 responsif dengan kartu karya (Korda, Folira, Modio, Revana), border radius, hover zoom, dan metadata.
 4. **Services (Sticky Stacking)**: Fitur scrolling andalan Velora di mana tiap baris servis bertumpuk secara sticky (`top: calc(...)`) saat halaman di-scroll ke bawah.
-5. **About & Experience**: Layout 2 kolom dengan kolom kiri profil Jane Smith yang sticky di viewport, sementara 5 riwayat karir di kanan scroll ke atas.
+5. **About & Experience**: Layout 2 kolom dengan kolom kiri profil Rizky Noviansyah yang sticky di viewport, sementara 5 riwayat karir di kanan scroll ke atas.
 6. **Reviews Slideshow**: Carousel testimoni interaktif dengan tombol navigasi Prev/Next, kutipan, avatar profil, dan role.
 7. **Footer / Contact**: Footer hitam kontras tinggi dengan typography masif "Stay connected", tombol "Get in touch", dan navigasi lengkap.
 8. **Floating Preview Widget**: Widget melayang di pojok kanan bawah dengan video loop preview (`footer-video.mp4`) dan tombol "Use Template".
