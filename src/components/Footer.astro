@@ -11,7 +11,16 @@ const footerLinks = [
   <div class="footer-container">
     <div class="footer-contact">
       <div class="footer-heading-wrap">
-        <h2>Stay connected</h2>
+        <svg class="footer-fit-heading footer-fit-heading-wide" viewBox="0 0 1078.6721135643265 193" overflow="hidden" aria-hidden="false">
+          <foreignObject width="1078.6721135643265" height="193">
+            <h2 xmlns="http://www.w3.org/1999/xhtml">Stay connected</h2>
+          </foreignObject>
+        </svg>
+        <svg class="footer-fit-heading footer-fit-heading-tablet" viewBox="0 0 756.786155952226 136" overflow="hidden" aria-hidden="false">
+          <foreignObject width="756.786155952226" height="136">
+            <h2 xmlns="http://www.w3.org/1999/xhtml">Stay connected</h2>
+          </foreignObject>
+        </svg>
       </div>
       <div class="footer-cta-wrap">
         <a href="mailto:hello.lunis.design@gmail.com" class="footer-cta link-underline-xl" data-slide-x>
@@ -82,22 +91,30 @@ const footerLinks = [
 
   .footer-heading-wrap {
     width: 100%;
-    aspect-ratio: 5.588;
+    aspect-ratio: 1078.6721135643265 / 193;
     overflow: hidden;
+  }
+
+  .footer-fit-heading {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .footer-fit-heading-tablet {
+    display: none;
   }
 
   .footer-heading-wrap h2 {
     width: 100%;
     color: var(--gold);
-    font-size: min(161.2px, calc((min(100vw, 1400px) - 160px) * 0.13));
+    font-family: var(--font-display);
+    font-size: 161.202px;
     font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: -0.06em;
+    line-height: 193.442px;
+    letter-spacing: -9.67211px;
     white-space: nowrap;
-    /* Live renders this heading inside an SVG with a viewBox (1078.7 x 193) stretched to
-       the 1240 x 222 container, which scales the text up ~1.15x. Replicate that scale. */
-    transform: scale(1.15);
-    transform-origin: 0 0;
   }
 
   .footer-cta-wrap {
@@ -118,6 +135,7 @@ const footerLinks = [
   .footer-cta span {
     display: block;
     width: 5.18em;
+    font-weight: 500;
     white-space: nowrap;
   }
 
@@ -185,8 +203,6 @@ const footerLinks = [
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
-    /* Live: first nav link sits 4px below the logo text line */
-    padding-top: 4px;
     overflow: hidden;
   }
 
@@ -227,8 +243,22 @@ const footerLinks = [
       padding: 40px;
     }
 
+    .footer-heading-wrap {
+      aspect-ratio: 756.786155952226 / 136;
+    }
+
+    .footer-fit-heading-wide {
+      display: none;
+    }
+
+    .footer-fit-heading-tablet {
+      display: block;
+    }
+
     .footer-heading-wrap h2 {
-      font-size: 109px;
+      font-size: 113.103px;
+      line-height: 135.723px;
+      letter-spacing: -6.78616px;
     }
 
     .footer-main {
@@ -242,21 +272,7 @@ const footerLinks = [
       flex: none;
       width: 100%;
     }
-  }
 
-  @media (min-width: 810px) and (max-width: 1199.98px) {
-    .footer-main {
-      flex-direction: row;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .footer-left {
-      align-self: stretch;
-      min-width: 0;
-      flex: 1 0 0;
-      width: 1px;
-    }
   }
 
   @media (max-width: 809.98px) {
@@ -266,8 +282,22 @@ const footerLinks = [
       padding: 40px 24px;
     }
 
+    .footer-heading-wrap {
+      aspect-ratio: 1078.6721135643265 / 193;
+    }
+
+    .footer-fit-heading-wide {
+      display: block;
+    }
+
+    .footer-fit-heading-tablet {
+      display: none;
+    }
+
     .footer-heading-wrap h2 {
-      font-size: 51px;
+      font-size: 161.202px;
+      line-height: 193.442px;
+      letter-spacing: -9.67211px;
     }
 
     .footer-nav a {
