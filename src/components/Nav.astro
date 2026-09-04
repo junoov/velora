@@ -38,7 +38,7 @@ const links = [
       </button>
     </div>
 
-    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" inert>
       <div class="mobile-nav-links">
         {links.map((link) => (
           <a
@@ -253,15 +253,24 @@ const links = [
       navbar.classList.remove('menu-open');
       toggle.setAttribute('aria-expanded', 'false');
       drawer.setAttribute('aria-hidden', 'true');
+      drawer.setAttribute('inert', '');
     };
 
     toggle.addEventListener('click', () => {
       const isOpen = navbar.classList.toggle('menu-open');
       toggle.setAttribute('aria-expanded', String(isOpen));
       drawer.setAttribute('aria-hidden', String(!isOpen));
+      if (isOpen) {
+        drawer.removeAttribute('inert');
+      } else {
+        drawer.setAttribute('inert', '');
+      }
     });
 
     drawer.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenu();
+    });
     window.addEventListener('resize', () => {
       if (window.innerWidth > 809.98) closeMenu();
     });
