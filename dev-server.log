@@ -1,0 +1,33 @@
+npm notice run velora@1.0.0 dev
+npm notice run astro dev --host 0.0.0.0 --port 4321
+10:48:23 [vite] connected.
+10:48:23 [types] Generated 0ms
+10:48:23 [vite] connected.
+10:48:23 [vite] Re-optimizing dependencies because vite config has changed
+ astro  v7.2.2 ready in 710 ms
+┃ Local    http://localhost:4321/
+┃ Network  http://192.168.100.6:4321/
+10:48:23 watching for file changes...
+10:48:26 [200] / 21ms
+10:48:27 [vite] dependencies optimized: gsap, gsap/ScrollTrigger, lenis
+10:48:28 [200] / 3ms
+10:52:58 [200] / 5ms
+11:04:33 [200] / 4ms
+11:07:18 [200] / 3ms
+11:07:18 [200] / 4ms
+11:07:21 [200] / 3ms
+11:07:21 [200] / 3ms
+11:07:24 [200] / 2ms
+11:07:24 [200] / 4ms
+11:11:14 [200] / 2ms
+11:11:14 [200] / 3ms
+11:11:14 [200] / 2ms
+11:11:14 [200] / 3ms
+11:11:14 [200] / 3ms
+11:11:14 [200] / 3ms
+11:11:46 [200] / 2ms
+11:14:31 [200] / 4ms
+11:14:31 [200] / 3ms
+11:17:18 [watch] /src/components/Nav.astro?astro&type=style&index=0&lang.css
+11:17:40 [200] / 17ms
+11:17:40 [200] / 3ms

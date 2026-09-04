@@ -21,7 +21,7 @@
 
     <div class="hero-bottom-row">
       <div class="hero-profile">
-        <div class="hero-image-wrap" data-hero="down" data-delay="0.1">
+        <div class="hero-image-wrap" data-hero="down" data-delay="0.1" data-hero-zoom>
           <img src="/assets/hero-portrait.png" alt="Portrait of Jane Smith" class="hero-portrait" width="1200" height="900" fetchpriority="high" />
         </div>
         <h1 class="hero-name" data-hero="down" data-delay="0">Jane Smith</h1>
@@ -229,3 +229,46 @@
     }
   }
 </style>
+
+<script>
+  // Live (Framer) scroll transform on the hero image wrapper, measured via CDP:
+  // scrollY 0 -> 900 (one viewport) maps linearly to
+  //   desktop (>=1200): scale 1 -> 1.14934, translateX 0 -> +37.83px, translateY 0 -> -27.88px
+  //   tablet (810-1199): scale 1 -> 1.14668, translateX 0 -> +37.16px, translateY 0 -> -27.38px
+  //   phone: no effect. Transform is applied directly (no smoothing) with origin center.
+  (() => {
+    const wrap = document.querySelector<HTMLElement>('[data-hero-zoom]');
+    const hero = document.getElementById('hero');
+    if (!wrap || !hero) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const media = window.matchMedia('(min-width: 810px)');
+    let raf = 0;
+
+    const apply = () => {
+      raf = 0;
+      if (!media.matches) {
+        wrap.style.transform = '';
+        return;
+      }
+      const range = Math.min(hero.offsetHeight, window.innerHeight) || 1;
+      const progress = Math.min(Math.max(window.scrollY / range, 0), 1);
+      const wide = window.matchMedia('(min-width: 1200px)').matches;
+      const dScale = wide ? 0.14934 : 0.14668;
+      const dX = wide ? 37.8319 : 37.1578;
+      const dY = wide ? -27.8761 : -27.3794;
+      wrap.style.transformOrigin = '50% 50%';
+      wrap.style.transform = `translate3d(${(dX * progress).toFixed(2)}px, ${(dY * progress).toFixed(2)}px, 0) scale(${(1 + dScale * progress).toFixed(5)})`;
+    };
+
+    const tick = () => {
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+
+    window.addEventListener('scroll', tick, { passive: true });
+    window.addEventListener('resize', tick);
+    if (media.addEventListener) media.addEventListener('change', tick);
+    else media.addListener(tick);
+    apply();
+  })();
+</script>

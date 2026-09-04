@@ -105,7 +105,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   scroll-behavior: auto;
-  scrollbar-gutter: stable;
 }
 
 .motion-pending [data-hero],
