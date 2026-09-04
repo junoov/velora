@@ -11,12 +11,6 @@ const experiences = [
     company: "Pemrograman Web",
     period: "Semester 6 · 2026",
     description: "Mendampingi mahasiswa selama sesi praktikum pemrograman web. Menjelaskan konsep frontend dan backend, memeriksa tugas, serta membantu memperbaiki error pada kode mahasiswa."
-  },
-  {
-    role: "S1 Informatika",
-    company: "Universitas Ahmad Dahlan",
-    period: "2023 - sekarang",
-    description: "Menempuh studi informatika dengan fokus pada pengembangan web, jaringan komputer, dan keamanan aplikasi. Aktif mendampingi praktikum KDJK dan Pemrograman Web di samping perkuliahan."
   }
 ];
 ---
@@ -41,6 +35,12 @@ const experiences = [
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </a>
+      </div>
+
+      <div class="about-education" data-reveal>
+        <p class="about-education-label">Pendidikan</p>
+        <h4 class="about-education-title">S1 Informatika</h4>
+        <p class="about-education-detail">Universitas Ahmad Dahlan · 2023 - sekarang</p>
       </div>
     </div>
 
@@ -184,6 +184,40 @@ const experiences = [
   .about-contact:hover svg,
   .about-contact:focus-visible svg {
     transform: translateX(3px);
+  }
+
+  .about-education {
+    width: 100%;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .about-education-label {
+    color: var(--text-faint);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+
+  .about-education-title {
+    margin-top: 8px;
+    color: var(--text);
+    font-size: var(--fs-body);
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: -0.04em;
+  }
+
+  .about-education-detail {
+    margin-top: 4px;
+    color: var(--text-muted);
+    font-size: var(--fs-body);
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.04em;
   }
 
   .experience-list {
@@ -359,6 +393,11 @@ const experiences = [
 
     .about-contact {
       margin-top: 0;
+    }
+
+    .about-education {
+      margin-top: 32px;
+      padding-top: 20px;
     }
 
     .experience-list {
