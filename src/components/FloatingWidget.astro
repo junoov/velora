@@ -3,7 +3,7 @@
 
 <div class="floating-widget" id="floatingWidget" data-hero="down" data-delay="3">
   <a
-    href="https://www.framer.com/community/marketplace/templates/folira/"
+    href="https://www.framer.com/community/marketplace/templates/aldena/"
     target="_blank"
     rel="noopener noreferrer"
     class="widget-preview"
@@ -35,6 +35,19 @@
     <span>Use Template</span>
   </a>
 </div>
+
+<a
+  class="framer-badge"
+  href="https://www.framer.com/"
+  target="_blank"
+  rel="noopener noreferrer"
+  title="Create a free website with Framer"
+>
+  <svg class="framer-mark" width="12" height="20" viewBox="0 0 12 20" fill="none" aria-hidden="true">
+    <path d="M0 0H12V6H6L0 0ZM0 6H6L12 12H6V18L0 12Z" fill="currentColor" transform="translate(0 1)" />
+  </svg>
+  <span>Made in Framer</span>
+</a>
 
 <style>
   .floating-widget {
@@ -123,6 +136,43 @@
     height: 14px;
     flex: none;
     object-fit: cover;
+  }
+
+  .framer-badge {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 9;
+    width: 140px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 0.6px 1.6px rgba(0, 0, 0, 0.17), 0 2.3px 6px rgba(0, 0, 0, 0.14), 0 10px 26px rgba(0, 0, 0, 0.02);
+    color: #000;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 10px;
+    white-space: nowrap;
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s ease;
+  }
+
+  .framer-badge:hover,
+  .framer-badge:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.17), 0 6px 12px rgba(0, 0, 0, 0.14), 0 12px 28px rgba(0, 0, 0, 0.04);
+  }
+
+  .framer-mark {
+    display: block;
+    flex: none;
+    color: currentColor;
   }
 
   @media (max-width: 809.98px) {
