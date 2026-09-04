@@ -22,7 +22,7 @@
     <div class="hero-bottom-row">
       <div class="hero-profile">
         <div class="hero-image-wrap" data-hero="down" data-delay="0.1">
-          <img src="/assets/hero-portrait.png" alt="" class="hero-portrait" width="1200" height="900" />
+          <img src="/assets/hero-portrait.png" alt="Portrait of Jane Smith" class="hero-portrait" width="1200" height="900" fetchpriority="high" />
         </div>
         <h1 class="hero-name" data-hero="down" data-delay="0">Jane Smith</h1>
       </div>
@@ -126,17 +126,12 @@
   .hero-image-wrap {
     width: 100%;
     max-width: 500px;
+    max-height: 350px;
+    flex: 0 0 auto;
     aspect-ratio: 4 / 3;
     overflow: hidden;
     border-radius: var(--radius-sm);
     background: var(--bg-card);
-  }
-
-  @media (min-width: 1200px) {
-    .hero-image-wrap {
-      position: relative;
-      top: 12.5px;
-    }
   }
 
   .hero-portrait {
