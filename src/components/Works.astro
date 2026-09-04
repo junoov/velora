@@ -1,39 +1,55 @@
 ---
 const projects = [
   {
+    title: "NovLink",
+    category: "Aplikasi Web · Next.js",
+    description: "Layanan pemendek tautan dengan slug khusus, redirect cepat, dan masa aktif tujuh hari untuk setiap tautan.",
+    stack: "Next.js · Vercel",
+    image: "/assets/project-novlink.jpg",
+    link: "https://sl.noov.app/"
+  },
+  {
+    title: "Roller Customize",
+    category: "Website Bisnis · Next.js",
+    description: "Website konveksi untuk memperkenalkan layanan, katalog produk, daftar harga, dan alur konsultasi pelanggan.",
+    stack: "Next.js · Responsive Web",
+    image: "/assets/project-roller-customize.jpg",
+    link: "https://rollercustomize.com/"
+  },
+  {
     title: "Cafe POS",
-    monogram: "CP",
     category: "Full-Stack · TypeScript",
     description: "Aplikasi point-of-sale untuk membantu operasional kafe.",
     stack: "TypeScript",
+    monogram: "CP",
     link: "https://github.com/junoov/pos-system-cafe"
   },
   {
     title: "Auraquina Juni",
-    monogram: "AJ",
     category: "Full-Stack · PHP",
     description: "Aplikasi web full-stack berbasis PHP dan Blade, dikemas dengan Docker.",
     stack: "PHP · Blade · Docker",
+    monogram: "AJ",
     link: "https://github.com/junoov/auraquina-juni"
   },
   {
     title: "Proyek Kita",
-    monogram: "PK",
     category: "Web · Astro",
     description: "Proyek web berbasis Astro dan TypeScript yang sudah tayang di Vercel.",
     stack: "Astro · TypeScript · Vercel",
+    monogram: "PK",
     link: "https://proyek-kita.vercel.app"
   },
   {
     title: "Velora Rebuild",
-    monogram: "VR",
     category: "Frontend · Astro",
     description: "Rebuild template Velora ke Astro dengan animasi scroll hasil reverse engineering.",
     stack: "Astro · GSAP · Lenis",
+    monogram: "VR",
     link: "https://github.com/junoov/velora"
   }
 ];
-const summary = "Kumpulan proyek pilihan di bidang frontend, backend, dan deployment. Kode sumber dan demo tayang tersedia di GitHub.";
+const summary = "Kumpulan proyek web yang saya bangun, mulai dari produk yang sudah tayang hingga eksperimen frontend dan full-stack.";
 ---
 
 <section class="works-section" id="projects">
@@ -64,9 +80,13 @@ const summary = "Kumpulan proyek pilihan di bidang frontend, backend, dan deploy
           rel={project.link.startsWith('http') ? 'noopener noreferrer' : undefined}
         >
           <div class="work-image-wrap">
-            <div class="work-cover">
-              <span class="work-monogram" aria-hidden="true">{project.monogram}</span>
-            </div>
+            {project.image ? (
+              <img src={project.image} alt={`Tampilan antarmuka ${project.title}`} class="work-image" width="1440" height="1080" loading="lazy" />
+            ) : (
+              <div class="work-cover">
+                <span class="work-monogram" aria-hidden="true">{project.monogram}</span>
+              </div>
+            )}
             <div class="work-overlay">
               <h6>{project.description}</h6>
               <p class="work-stack">{project.stack}</p>
@@ -138,6 +158,14 @@ const summary = "Kumpulan proyek pilihan di bidang frontend, backend, dan deploy
     background: var(--bg-subtle);
   }
 
+  .work-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.7s var(--ease-out);
+  }
+
   .work-monogram {
     color: var(--text-faint);
     font-family: var(--font-display);
@@ -148,7 +176,9 @@ const summary = "Kumpulan proyek pilihan di bidang frontend, backend, dan deploy
   }
 
   .work-card:hover .work-monogram,
-  .work-card:focus-visible .work-monogram {
+  .work-card:focus-visible .work-monogram,
+  .work-card:hover .work-image,
+  .work-card:focus-visible .work-image {
     transform: scale(1.08);
   }
 
