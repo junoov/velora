@@ -20,11 +20,10 @@ const experiences = [
     <div class="about-summary">
       <div class="about-heading" data-reveal>
         <div class="section-dash"></div>
-        <h2 class="section-label-text">Pengalaman</h2>
+        <h2 class="section-label-text">Tentang Saya</h2>
       </div>
 
       <div class="about-bio-wrap">
-        <h3 class="about-name" data-reveal>Rizky Noviansyah</h3>
         <p class="about-bio" data-reveal>
           Saya seorang pengembang web full-stack yang senang membangun aplikasi secara utuh, dari antarmuka hingga database. Latar belakang saya di jaringan komputer dan keamanan web membentuk cara saya merancang serta menjaga kualitas perangkat lunak.
         </p>
@@ -45,27 +44,23 @@ const experiences = [
     </div>
 
     <div class="experience-list">
+      <div class="experience-label" data-reveal>
+        <div class="section-dash"></div>
+        <h2 class="section-label-text">Pengalaman</h2>
+      </div>
+
       {experiences.map((experience, index) => (
-        <div
-          class="experience-item"
-          tabindex="0"
-          role="button"
-          aria-expanded="false"
-          aria-controls={`experience-content-${index}`}
-          data-experience
-          data-reveal
-        >
-          <div class="experience-main">
-            <h6>{experience.role}</h6>
-            <p>{experience.company}</p>
+        <div class="experience-item" data-reveal>
+          <div class="experience-top">
+            <div class="experience-main">
+              <h6>{experience.role}</h6>
+              <p>{experience.company}</p>
+            </div>
+            <div class="experience-secondary">
+              <p>{experience.period}</p>
+            </div>
           </div>
-          <div class="experience-secondary">
-            <p>{experience.period}</p>
-            <svg class="experience-plus" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M3.75 12H20.25M12 3.75V20.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-            </svg>
-          </div>
-          <div class="experience-content" id={`experience-content-${index}`} aria-hidden="true">
+          <div class="experience-content">
             <p>{experience.description}</p>
           </div>
           <span class="experience-line" aria-hidden="true"></span>
@@ -125,14 +120,6 @@ const experiences = [
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
-  }
-
-  .about-name {
-    color: var(--text);
-    font-size: var(--fs-h2);
-    font-weight: 500;
-    line-height: 120%;
-    letter-spacing: -0.06em;
   }
 
   .about-bio {
@@ -232,16 +219,28 @@ const experiences = [
     overflow: hidden;
   }
 
+  .experience-label {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+  }
+
   .experience-item {
     position: relative;
     width: 100%;
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-    column-gap: 24px;
-    row-gap: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     padding: 0 0 24px;
-    cursor: pointer;
-    outline: none;
+  }
+
+  .experience-top {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
   }
 
   .experience-main {
@@ -255,7 +254,7 @@ const experiences = [
   .experience-main h6 {
     width: 100%;
     color: var(--text);
-    font-size: var(--fs-h6);
+    font-size: var(--fs-h5);
     font-weight: 500;
     line-height: 140%;
     letter-spacing: -0.05em;
@@ -277,38 +276,17 @@ const experiences = [
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .experience-secondary p {
     text-align: right;
   }
 
-  .experience-plus {
-    display: block;
-    width: 20px;
-    height: 20px;
-    flex: none;
-    color: var(--line-hover);
-    transform-origin: center;
-    transition: transform 0.45s var(--ease-link);
-  }
-
-  .experience-item.is-expanded .experience-plus {
-    transform: rotate(45deg);
-  }
-
   .experience-content {
-    grid-column: 1 / -1;
     width: 100%;
     max-width: 500px;
-    max-height: 0;
-    margin-top: 0;
-    overflow: hidden;
     color: var(--text-muted);
-    opacity: 0;
-    visibility: hidden;
-    transition: max-height 0.55s var(--ease-out), margin-top 0.55s var(--ease-out), opacity 0.35s var(--ease-link), visibility 0s linear 0.55s;
   }
 
   .experience-content p {
@@ -320,28 +298,6 @@ const experiences = [
     letter-spacing: -0.04em;
   }
 
-  .experience-item.is-expanded .experience-content {
-    max-height: 240px;
-    margin-top: 16px;
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 0s;
-  }
-
-  .experience-item:focus-visible {
-    outline: 1px solid var(--line-hover);
-    outline-offset: 4px;
-  }
-
-  /* The icon is a stroked plus, matching the source site's 24px symbol. */
-  .experience-plus path {
-    fill: none;
-  }
-
-  .experience-plus {
-    width: 20px;
-  }
-
   .experience-line {
     position: absolute;
     right: 0;
@@ -349,25 +305,6 @@ const experiences = [
     left: 0;
     height: 1px;
     background: var(--line);
-  }
-
-  .experience-item::after {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    height: 1px;
-    background: var(--line-hover);
-    content: "";
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.45s var(--ease-link);
-  }
-
-  .experience-item:hover::after,
-  .experience-item:focus-visible::after {
-    transform: scaleX(1);
   }
 
   @media (max-width: 1199.98px) {
@@ -437,37 +374,35 @@ const experiences = [
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 0;
+      gap: 8px;
       padding-bottom: 20px;
     }
 
+    .experience-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
     .experience-main {
-      order: 1;
       width: 100%;
       flex: none;
-      margin-top: 8px;
       gap: 0;
     }
 
     .experience-content {
-      order: 2;
       width: 100%;
       max-width: none;
     }
 
-    .experience-item.is-expanded .experience-content {
-      margin-top: 16px;
-    }
-
     .experience-secondary {
-      order: 0;
       align-self: unset;
       width: 100%;
       height: auto;
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       flex: none;
     }
 
@@ -479,35 +414,3 @@ const experiences = [
     }
   }
 </style>
-
-<script>
-  const experienceItems = Array.from(document.querySelectorAll<HTMLElement>('[data-experience]'));
-
-  const setExperienceState = (item: HTMLElement, expanded: boolean) => {
-    experienceItems.forEach((other) => {
-      const isCurrent = other === item;
-      const isExpanded = isCurrent && expanded;
-      const contentId = other.getAttribute('aria-controls');
-      const content = contentId ? document.getElementById(contentId) : null;
-
-      other.classList.toggle('is-expanded', isExpanded);
-      other.setAttribute('aria-expanded', String(isExpanded));
-      content?.setAttribute('aria-hidden', String(!isExpanded));
-    });
-
-    window.setTimeout(() => window.__veloraMotion?.refresh(), 600);
-  };
-
-  experienceItems.forEach((item) => {
-    item.addEventListener('click', () => {
-      setExperienceState(item, !item.classList.contains('is-expanded'));
-    });
-
-    item.addEventListener('keydown', (event) => {
-      if (event.key !== 'Enter' && event.key !== ' ') return;
-
-      event.preventDefault();
-      setExperienceState(item, !item.classList.contains('is-expanded'));
-    });
-  });
-</script>
