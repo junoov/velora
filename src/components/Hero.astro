@@ -26,7 +26,7 @@
     <div class="hero-bottom-row">
       <div class="hero-profile">
         <div class="hero-image-wrap" data-hero="down" data-delay="0.1" data-hero-zoom>
-          <img src="/assets/hero-portrait.png" alt="Portrait of Rizky Noviansyah" class="hero-portrait" width="1200" height="900" fetchpriority="high" />
+          <img src="/assets/hero-rizky-landscape.jpg" alt="Potret Rizky Noviansyah" class="hero-portrait" width="1536" height="1024" fetchpriority="high" />
         </div>
         <h1 class="hero-name" data-hero="down" data-delay="0">Rizky Noviansyah</h1>
       </div>
@@ -51,7 +51,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: var(--bg-tint);
+    background: linear-gradient(180deg, var(--bg-tint) 0%, var(--bg-tint) 55%, var(--bg) 100%);
     padding-top: 64px;
   }
 
@@ -146,11 +146,13 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+    filter: grayscale(1);
+    mix-blend-mode: multiply;
     transition: transform 0.6s var(--ease-out);
   }
 
   .hero-image-wrap:hover .hero-portrait {
-    transform: scale(1.04);
+    transform: scale(1.015);
   }
 
   .hero-name {

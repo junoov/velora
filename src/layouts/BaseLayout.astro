@@ -23,15 +23,52 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/hero-portrait.png" />
+    <meta property="og:image" content="/assets/hero-rizky-landscape.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script is:inline>
       document.documentElement.classList.add('motion-pending');
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('intro-pending');
+      }
       window.setTimeout(() => document.documentElement.classList.remove('motion-pending'), 1800);
     </script>
+    <style>
+      .intro-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: #000000;
+      }
+
+      html.intro-pending .intro-overlay {
+        display: flex;
+      }
+
+      .intro-greeting {
+        display: inline-block;
+        color: #ffffff;
+        font-family: var(--font-sans);
+        font-size: clamp(40px, 8vw, 96px);
+        font-weight: 500;
+        letter-spacing: -0.05em;
+        line-height: 120%;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .intro-overlay {
+          display: none;
+        }
+      }
+    </style>
   </head>
   <body>
+    <div class="intro-overlay" data-intro aria-hidden="true">
+      <span class="intro-greeting" data-intro-text>Hello</span>
+    </div>
     <slot />
     <div class="cursor-follower" data-cursor aria-hidden="true">
       <span class="cursor-follower-label">Lihat</span>
@@ -72,6 +109,70 @@ const {
         const anchorCleanups: Array<() => void> = [];
         let lenis: Lenis | null = null;
         let destroyed = false;
+
+        const runIntro = () => {
+          const overlay = document.querySelector<HTMLElement>('[data-intro]');
+          const text = document.querySelector<HTMLElement>('[data-intro-text]');
+          if (!overlay || !text) {
+            root.classList.remove('intro-pending');
+            return Promise.resolve();
+          }
+
+          const greetings = ['Hello', 'Hola', 'Bonjour', 'Ciao', 'Hallo', 'Olá', 'こんにちは', '안녕하세요', 'مرحبا'];
+          const finalGreeting = 'Halo.';
+          window.scrollTo(0, 0);
+          document.body.style.overflow = 'hidden';
+
+          const finish = () => {
+            document.body.style.overflow = '';
+            overlay.remove();
+            root.classList.remove('intro-pending');
+          };
+
+          if (prefersReducedMotion) {
+            finish();
+            return Promise.resolve();
+          }
+
+          return new Promise<void>((resolve) => {
+            const timeline = gsap.timeline({ onComplete: () => { finish(); resolve(); } });
+
+            greetings.forEach((greeting, index) => {
+              const label = `greet-${index}`;
+              timeline.call(() => {
+                text.textContent = greeting;
+              }, undefined, label);
+              timeline.fromTo(
+                text,
+                { opacity: 0.001, y: index === 0 ? 0 : 14 },
+                { opacity: 1, y: 0, duration: 0.16, ease: 'power2.out' },
+                label
+              );
+              timeline.to(text, {
+                opacity: 0.001,
+                y: -14,
+                duration: 0.14,
+                ease: 'power2.in',
+              }, `${label}+=0.12`);
+            });
+
+            timeline.call(() => {
+              text.textContent = finalGreeting;
+            });
+            timeline.fromTo(
+              text,
+              { opacity: 0.001, y: 14 },
+              { opacity: 1, y: 0, duration: 0.16, ease: 'power2.out' }
+            );
+            timeline.to(overlay, {
+              yPercent: -100,
+              duration: 0.7,
+              ease: 'power4.inOut',
+            }, '+=0.45');
+          });
+        };
+
+        const introPromise = runIntro();
 
         const cursor = document.querySelector<HTMLElement>('[data-cursor]');
         const hasFinePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
@@ -258,6 +359,7 @@ const {
           lenis.on('scroll', ScrollTrigger.update);
           gsap.ticker.add((time) => lenis?.raf(time * 1000));
           gsap.ticker.lagSmoothing(0);
+          await introPromise;
           setupReveals();
         }
 
