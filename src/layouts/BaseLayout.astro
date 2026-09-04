@@ -23,151 +23,269 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/hero-portrait.png" />
+    <link rel="canonical" href="https://velora-template.framer.website/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script is:inline>
       document.documentElement.classList.add('motion-pending');
-      window.setTimeout(() => document.documentElement.classList.remove('motion-pending'), 3000);
+      window.setTimeout(() => document.documentElement.classList.remove('motion-pending'), 1800);
     </script>
   </head>
   <body>
     <slot />
+    <div class="cursor-follower" data-cursor aria-hidden="true">
+      <span class="cursor-follower-label">View</span>
+    </div>
 
     <script>
       import gsap from 'gsap';
       import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      import Lenis from 'lenis';
 
       gsap.registerPlugin(ScrollTrigger);
 
-      const root = document.documentElement;
-      root.classList.add('js');
-
-      const springEase = (progress: number) => {
-        const slow = Math.exp(-8 * progress);
-        const fast = Math.exp(-50 * progress);
-        return 1 - (25 / 21) * slow + (4 / 21) * fast;
+      type MotionApi = {
+        reducedMotion: boolean;
+        lenis: Lenis | null;
+        refresh: () => void;
+        destroy: () => void;
       };
-
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      const scrollToTarget = (target: HTMLElement) => {
-        const top = target.getBoundingClientRect().top + window.scrollY - 64;
-        window.scrollTo({
-          top,
-          behavior: prefersReducedMotion ? 'auto' : 'smooth',
-        });
-      };
-
-      document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener('click', (event) => {
-          const href = anchor.getAttribute('href');
-          if (!href || href === '#') return;
-
-          const target = document.querySelector<HTMLElement>(href);
-          if (!target) return;
-
-          event.preventDefault();
-          scrollToTarget(target);
-        });
-      });
-
-      await document.fonts?.ready.catch(() => undefined);
-
-      if (prefersReducedMotion) {
-        gsap.set('[data-hero], [data-reveal], [data-slide-x]', {
-          clearProps: 'all',
-          opacity: 1,
-        });
-      } else {
-        gsap.utils.toArray<HTMLElement>('[data-hero]').forEach((element) => {
-          const direction = element.dataset.hero === 'up' ? -20 : 20;
-          const delay = Number(element.dataset.delay ?? 0);
-
-          gsap.fromTo(
-            element,
-            { opacity: 0.001, y: direction },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.9,
-              delay,
-              ease: springEase,
-              clearProps: 'transform',
-            }
-          );
-        });
-
-        gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((element) => {
-          const distance = element.dataset.reveal === 'sm' ? 8 : 30;
-
-          gsap.fromTo(
-            element,
-            { opacity: 0.001, y: distance },
-            {
-              opacity: 1,
-              duration: 0.9,
-              ease: springEase,
-              clearProps: 'transform',
-              scrollTrigger: {
-                trigger: element,
-                start: 'top 88%',
-                once: true,
-              },
-            }
-          );
-        });
-
-        gsap.utils.toArray<HTMLElement>('[data-slide-x]').forEach((element) => {
-          gsap.fromTo(
-            element,
-            { opacity: 0.001, x: -24 },
-            {
-              opacity: 1,
-              duration: 0.9,
-              ease: springEase,
-              clearProps: 'transform',
-              scrollTrigger: {
-                trigger: element,
-                start: 'top 90%',
-                once: true,
-              },
-            }
-          );
-        });
-
-        document.querySelectorAll<HTMLElement>('[data-words]').forEach((element) => {
-          const spans = Array.from(element.querySelectorAll<HTMLElement>('.word'));
-
-          gsap.fromTo(
-            spans,
-            { opacity: 0.001, y: 10, filter: 'blur(2px)' },
-            {
-              opacity: 1,
-              y: 0,
-              filter: 'blur(0px)',
-              duration: 0.7,
-              ease: 'power3.out',
-              stagger: 0.05,
-              scrollTrigger: {
-                trigger: element,
-                start: 'top 90%',
-                once: true,
-              },
-            }
-          );
-        });
-      }
-
-      root.classList.remove('motion-pending');
-      ScrollTrigger.refresh();
 
       type VeloraWindow = Window & {
-        __gsap?: typeof gsap;
-        __ScrollTrigger?: typeof ScrollTrigger;
+        __veloraMotion?: MotionApi;
       };
+
+      const root = document.documentElement;
       const veloraWindow = window as VeloraWindow;
-      veloraWindow.__gsap = gsap;
-      veloraWindow.__ScrollTrigger = ScrollTrigger;
+      root.classList.add('js');
+
+      if (veloraWindow.__veloraMotion) {
+        root.classList.remove('motion-pending');
+      } else {
+        const springEase = (progress: number) => {
+          const slow = Math.exp(-8 * progress);
+          const fast = Math.exp(-50 * progress);
+          return 1 - (25 / 21) * slow + (4 / 21) * fast;
+        };
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const anchorCleanups: Array<() => void> = [];
+        let lenis: Lenis | null = null;
+        let destroyed = false;
+
+        const cursor = document.querySelector<HTMLElement>('[data-cursor]');
+        const hasFinePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
+
+        if (cursor && hasFinePointer) {
+          gsap.set(cursor, { xPercent: -50, x: -100, y: -100 });
+
+          const moveX = gsap.quickTo(cursor, 'x', {
+            duration: prefersReducedMotion ? 0 : 0.35,
+            ease: 'power3.out',
+          });
+          const moveY = gsap.quickTo(cursor, 'y', {
+            duration: prefersReducedMotion ? 0 : 0.35,
+            ease: 'power3.out',
+          });
+
+          const handlePointerMove = (event: PointerEvent) => {
+            if (event.pointerType === 'touch') return;
+            cursor.classList.add('is-visible');
+            moveX(event.clientX);
+            moveY(event.clientY);
+          };
+
+          const handlePointerOut = (event: PointerEvent) => {
+            if (!event.relatedTarget) {
+              cursor.classList.remove('is-visible', 'is-work');
+            }
+          };
+
+          window.addEventListener('pointermove', handlePointerMove, { passive: true });
+          window.addEventListener('pointerout', handlePointerOut, { passive: true });
+
+          document.querySelectorAll<HTMLElement>('[data-cursor-hover="work"]').forEach((element) => {
+            const handleEnter = () => cursor.classList.add('is-work');
+            const handleLeave = () => cursor.classList.remove('is-work');
+
+            element.addEventListener('pointerenter', handleEnter);
+            element.addEventListener('pointerleave', handleLeave);
+            anchorCleanups.push(() => {
+              element.removeEventListener('pointerenter', handleEnter);
+              element.removeEventListener('pointerleave', handleLeave);
+            });
+          });
+
+          anchorCleanups.push(() => {
+            window.removeEventListener('pointermove', handlePointerMove);
+            window.removeEventListener('pointerout', handlePointerOut);
+            gsap.killTweensOf(cursor);
+            cursor.classList.remove('is-visible', 'is-work');
+          });
+        }
+
+        const scrollToTarget = (target: HTMLElement) => {
+          if (lenis && !prefersReducedMotion) {
+            lenis.scrollTo(target, {
+              offset: -64,
+              duration: 0.9,
+              easing: springEase,
+            });
+            return;
+          }
+
+          const top = target.getBoundingClientRect().top + window.scrollY - 64;
+          window.scrollTo({ top, behavior: 'auto' });
+        };
+
+        document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((anchor) => {
+          const handleClick = (event: MouseEvent) => {
+            const href = anchor.getAttribute('href');
+            if (!href || href === '#') return;
+
+            const target = document.querySelector<HTMLElement>(href);
+            if (!target) return;
+
+            event.preventDefault();
+            scrollToTarget(target);
+          };
+
+          anchor.addEventListener('click', handleClick);
+          anchorCleanups.push(() => anchor.removeEventListener('click', handleClick));
+        });
+
+        await document.fonts.ready;
+
+        const setVisible = () => {
+          gsap.set('[data-hero], [data-reveal], [data-slide-x], [data-words] .word', {
+            clearProps: 'all',
+            opacity: 1,
+          });
+        };
+
+        const setupReveals = () => {
+          gsap.utils.toArray<HTMLElement>('[data-hero]').forEach((element) => {
+            const direction = element.dataset.hero === 'up' ? -20 : 20;
+            const delay = Number(element.dataset.delay ?? 0);
+
+            gsap.fromTo(
+              element,
+              { opacity: 0.001, y: direction },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                delay,
+                ease: springEase,
+                clearProps: 'transform',
+              }
+            );
+          });
+
+          gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((element) => {
+            const distance = element.dataset.reveal === 'sm' ? 8 : 30;
+
+            gsap.fromTo(
+              element,
+              { opacity: 0.001, y: distance },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: springEase,
+                clearProps: 'transform',
+                scrollTrigger: {
+                  trigger: element,
+                  start: 'top 88%',
+                  once: true,
+                },
+              }
+            );
+          });
+
+          gsap.utils.toArray<HTMLElement>('[data-slide-x]').forEach((element) => {
+            gsap.fromTo(
+              element,
+              { opacity: 0.001, x: -24 },
+              {
+                opacity: 1,
+                x: 0,
+                duration: 0.9,
+                ease: springEase,
+                clearProps: 'transform',
+                scrollTrigger: {
+                  trigger: element,
+                  start: 'top 90%',
+                  once: true,
+                },
+              }
+            );
+          });
+
+          document.querySelectorAll<HTMLElement>('[data-words]').forEach((element) => {
+            const words = Array.from(element.querySelectorAll<HTMLElement>('.word'));
+
+            gsap.fromTo(
+              words,
+              { opacity: 0.001, y: 10, filter: 'blur(2px)' },
+              {
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)',
+                duration: 0.7,
+                ease: 'power3.out',
+                stagger: 0.05,
+                scrollTrigger: {
+                  trigger: element,
+                  start: 'top 90%',
+                  once: true,
+                },
+              }
+            );
+          });
+        };
+
+        if (prefersReducedMotion) {
+          setVisible();
+        } else {
+          lenis = new Lenis({
+            autoRaf: false,
+            smoothWheel: true,
+            anchors: false,
+            respectReducedMotion: true,
+          });
+
+          lenis.on('scroll', ScrollTrigger.update);
+          gsap.ticker.add((time) => lenis?.raf(time * 1000));
+          gsap.ticker.lagSmoothing(0);
+          setupReveals();
+        }
+
+        root.classList.remove('motion-pending');
+        ScrollTrigger.refresh(true);
+
+        const refresh = () => ScrollTrigger.refresh(true);
+        const destroy = () => {
+          if (destroyed) return;
+          destroyed = true;
+          anchorCleanups.forEach((cleanup) => cleanup());
+          ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+          if (lenis) {
+            lenis.off('scroll', ScrollTrigger.update);
+            lenis.destroy();
+            lenis = null;
+          }
+          root.classList.remove('motion-pending');
+        };
+
+        veloraWindow.__veloraMotion = {
+          reducedMotion: prefersReducedMotion,
+          lenis,
+          refresh,
+          destroy,
+        };
+      }
     </script>
   </body>
 </html>
